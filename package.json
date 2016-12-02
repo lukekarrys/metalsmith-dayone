@@ -42,7 +42,7 @@
   "scripts": {
     "build": "node example/index",
     "lint": "standard",
-    "preview": "npm run build && http-server ./example/build -p 8080",
+    "preview": "npm run build src && http-server ./example/build -p 8080",
     "validate": "npm ls"
   }
 }

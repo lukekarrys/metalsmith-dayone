@@ -1,0 +1,47 @@
+{
+  "name": "metalsmith-dayone",
+  "description": "A Metalsmith plugin to create files from a Day One JSON export.",
+  "version": "1.0.0",
+  "author": "Luke Karrys <luke@lukekarrys.com>",
+  "bugs": {
+    "url": "https://github.com/lukekarrys/metalsmith-dayone/issues"
+  },
+  "dependencies": {
+    "debug": "^2.3.3",
+    "is-absolute": "^0.2.6",
+    "lodash": "^4.17.2",
+    "marked": "^0.3.6",
+    "yauzl": "^2.7.0"
+  },
+  "devDependencies": {
+    "http-server": "^0.9.0",
+    "metalsmith": "^2.3.0",
+    "metalsmith-debug": "^1.1.0",
+    "mkdirp": "^0.5.1",
+    "rimraf": "^2.5.4",
+    "standard": "^8.6.0"
+  },
+  "homepage": "https://github.com/lukekarrys/metalsmith-dayone#readme",
+  "keywords": [
+    "blog",
+    "dayone",
+    "journal",
+    "metalsmith"
+  ],
+  "license": "ISC",
+  "main": "metalsmith-dayone.js",
+  "pre-commit": [
+    "lint",
+    "validate"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/lukekarrys/metalsmith-dayone.git"
+  },
+  "scripts": {
+    "build": "node example/index",
+    "lint": "standard",
+    "preview": "npm run build && http-server ./example/build -p 8080",
+    "validate": "npm ls"
+  }
+}

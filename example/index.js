@@ -6,6 +6,9 @@ const debug = require('metalsmith-debug')
 const dayone = require('../')
 
 const emptySrc = '../.empty-src'
+const dayoneSrc = '../.dayone/dayone'
+const dayoneZip = '../.dayone/dayone.zip'
+
 mkdirp.sync(p.resolve(__dirname, emptySrc))
 
 let src = null
@@ -14,17 +17,17 @@ let zip = null
 
 switch (process.argv[2]) {
   case 'src':
-    src = '../.dayone'
+    src = dayoneSrc
     break
 
   case 'path':
     src = emptySrc
-    path = '../.dayone'
+    path = dayoneSrc
     break
 
   case 'zip':
     src = emptySrc
-    zip = '../.dayone.zip'
+    zip = dayoneZip
     break
 
   default:

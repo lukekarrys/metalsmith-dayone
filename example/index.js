@@ -13,7 +13,6 @@ mkdirp.sync(p.resolve(__dirname, emptySrc))
 
 let src = null
 let path = null
-let zip = null
 
 switch (process.argv[2]) {
   case 'src':
@@ -27,7 +26,7 @@ switch (process.argv[2]) {
 
   case 'zip':
     src = emptySrc
-    zip = dayoneZip
+    path = dayoneZip
     break
 
   default:
@@ -40,7 +39,6 @@ Metalsmith(__dirname)
   .clean(true)
   .use(dayone({
     path,
-    zip,
     journals: 'workout',
     tags: 'strava'
   }))

@@ -5,11 +5,10 @@ const unzip = require('./lib/unzip-flat')
 const buildFiles = require('./lib/files')
 
 const dayone = ({
-  journals: onlyJournals = [],
-  tags: onlyTags = [],
-  markdown: markdownOptions = {},
-  path: dayonePath = null,
-  zip: dayoneZip = null
+  journals: onlyJournals,
+  tags: onlyTags,
+  markdown: markdownOptions,
+  path: dayonePath
 }) => (msFiles, metalsmith, done) => {
   const getPath = (p) => {
     if (isAbsolute(p)) return p
@@ -39,22 +38,18 @@ const dayone = ({
     done()
   }
 
-  if (!dayonePath && !dayoneZip) {
+  if (!dayonePath) {
     debug('Source directory is all dayone files')
     return build(null, msFiles, true)
   }
 
-  if (dayonePath) {
-    dayonePath = getPath(dayonePath)
-    debug('Looking for dayone files in %s', dayonePath)
-    return metalsmith.read(dayonePath, build)
-  }
+  dayonePath = getPath(dayonePath)
+  const isZip = path.extname(dayonePath) === '.zip'
+  debug('Looking for dayone files in %s', dayonePath)
 
-  if (dayoneZip) {
-    dayoneZip = getPath(dayoneZip)
-    debug('Looking for dayone zip file at %s', dayoneZip)
-    return unzip(dayoneZip, { lazyEntries: true }, build)
-  }
+  return isZip
+    ? unzip(dayonePath, { lazyEntries: true }, build)
+    : metalsmith.read(dayonePath, build)
 }
 
 module.exports = dayone

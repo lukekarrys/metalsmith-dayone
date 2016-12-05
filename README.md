@@ -108,24 +108,26 @@ Day One captures a lot of data. From `weather.windSpeedKPH` to `userActivity.ste
 
 Here's an example of some data after `metalsmith-dayone` is done with it (with a `path` of `entries/:id`):
 
-```json
+```js
 {
-  "entries/BC5CE1B78AFC4003A1BB0CF5593013C5.html": {
-    contents: <Buffer>,
-    title: "",
-    tags: [ ... ],
+  'entries/BC5CE1B78AFC4003A1BB0CF5593013C5.html': {
+    contents: Buffer,
+    text: '# Raw markdown\nStuff',
+    title: 'Raw markdown',
+    tags: ['tag', 'tag3'],
     weather: { ... },
     location: { ... },
-    photos: [ ... ],
     ...
   },
-  "photos/8f4b665521c4cae876835af23129dcd2.jpeg": {
-    contents: <Buffer>
+  'photos/123.jpeg': {
+    contents: Buffer
   },
-  "entries/E686072CCEE044948295B7C4CF5D1C42.html": {
-    contents: <Buffer>,
-    title: "",
-    tags: [ ... ],
+  'entries/E686072CCEE044948295B7C4CF5D1C42.html': {
+    contents: Buffer,
+    text: '![](/photos/123.jpeg)',
+    title: 'Untitled', // No title for this entry
+    tags: ['tag1', 'tag3'],
+    photos: [{ ... }],
     ...
   }
 }

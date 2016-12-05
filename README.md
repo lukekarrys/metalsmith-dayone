@@ -20,9 +20,11 @@ After you have the `.zip` file, here are the steps to make sure `metalsmith` can
 2. If it extracts to a directory, you're all good to go
 3. If it just extracted to a `.json` file, put that file inside a directory
 
+
 ## Example
 
 See the [`example/` directory](./example) for an example with paginated entries and tags pages.
+
 
 ## Usage
 
@@ -33,14 +35,11 @@ Once you have all your exported Day One data in a directory, just point the `sou
 This will result in the `destination` directory having an `html` file for each entry! It will also copy any photos to the directory.
 
 ```js
-const Metalsmith = require('metalsmith')
-const dayone = require('metalsmith-dayone')
-
-Metalsmith(__dirname)
+require('metalsmith')(__dirname)
   .source('./path/to/dayone/data')
   .destination('./build')
   .clean(true)
-  .use(dayone())
+  .use(require('metalsmith-dayone')())
   .build((err) => {
     if (err) throw err
   })
@@ -51,13 +50,12 @@ Metalsmith(__dirname)
 If you already have a `metalsmith` site or want to use Day One data in conjunction with other stuff, you probably don't want to change the `source` path. In this case, you can provide a `data` option to `metalsmith-dayone` for where to look for your data.
 
 ```js
-const Metalsmith = require('metalsmith')
-const dayone = require('metalsmith-dayone')
-
-Metalsmith(__dirname)
+require('metalsmith')(__dirname)
   .source('./you/already/got/src')
   .destination('./build')
-  .use(dayone({ data: './path/to/dayone/data' }))
+  .use(require('metalsmith-dayone')({
+    data: './path/to/dayone/data'
+  }))
   .build((err) => {
     if (err) throw err
   })
@@ -68,17 +66,15 @@ Metalsmith(__dirname)
 `metalsmith-dayone` can unzip the `.zip` file for you, but it requires that the `source` directory exists. If all you want is Day One data with `metalsmith` you'll need to point `source` at an empty directory.
 
 ```js
-const Metalsmith = require('metalsmith')
-const dayone = require('metalsmith-dayone')
-const mkdirp = require('mkdirp')
-
 // Create an empty directory first
-mkdirp.sync(__dirname + '/empty')
+require('mkdirp').sync(__dirname + '/empty')
 
-Metalsmith(__dirname)
+require('metalsmith')(__dirname)
   .source('./empty')
   .destination('./build')
-  .use(dayone({ data: './path/to/dayone.zip' }))
+  .use(require('metalsmith-dayone')({
+    data: './path/to/dayone.zip'
+  }))
   .build((err) => {
     if (err) throw err
   })
@@ -116,6 +112,7 @@ Day One captures a lot of data. From `weather.windSpeedKPH` to `userActivity.ste
 
 1. Transforms the `text` to a buffer (and optionally parses it to `html`) and puts it on `contents`
 2. Rewrites any internal Day One links and images to point where they will be in the `destination` directory
+3. Adds `title` metadata based on the best guess from the entry
 3. Places all other Day One data as if it were read from `frontmatter`
 
 Here's an example of some data after `metalsmith-dayone` is done with it (with a `path` of `entries/:id`):
@@ -124,6 +121,7 @@ Here's an example of some data after `metalsmith-dayone` is done with it (with a
 {
   "entries/BC5CE1B78AFC4003A1BB0CF5593013C5.html": {
     contents: <Buffer>,
+    title: "",
     tags: [ ... ],
     weather: { ... },
     location: { ... },
@@ -135,6 +133,7 @@ Here's an example of some data after `metalsmith-dayone` is done with it (with a
   },
   "entries/E686072CCEE044948295B7C4CF5D1C42.html": {
     contents: <Buffer>,
+    title: "",
     tags: [ ... ],
     ...
   }

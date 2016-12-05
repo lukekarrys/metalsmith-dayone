@@ -18,7 +18,7 @@ const REVERSE = true
 
 Metalsmith(__dirname)
   .metadata({ site: { title: 'Day One Blog' } })
-  .source('../.dayone/dayone')
+  .source('../.dayone')
   .destination('./build')
   .clean(true)
   .use(pages({

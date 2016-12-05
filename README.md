@@ -32,7 +32,7 @@ See the [`example/` directory](./example) for an example with paginated entries 
 
 Once you have all your exported Day One data in a directory, just point the `source` method at that directory.
 
-This will result in the `destination` directory having an `html` file for each entry! It will also copy any photos to the directory.
+This will result in the `destination` directory having an `html` file for each entry! It will also copy any referenced photos to that directory.
 
 ```js
 require('metalsmith')(__dirname)
@@ -47,7 +47,7 @@ require('metalsmith')(__dirname)
 
 ### Adding Day One data to an existing site
 
-If you already have a `metalsmith` site or want to use Day One data in conjunction with other stuff, you probably don't want to change the `source` path. In this case, you can provide a `data` option to `metalsmith-dayone` for where to look for your data.
+If you already have a `metalsmith` site or want to use Day One data in conjunction with other stuff, you probably don't want to change the `source` path. In this case, you can provide a `data` option to `metalsmith-dayone` to tell it where to look for your data.
 
 ```js
 require('metalsmith')(__dirname)
@@ -56,9 +56,7 @@ require('metalsmith')(__dirname)
   .use(require('metalsmith-dayone')({
     data: './path/to/dayone/data'
   }))
-  .build((err) => {
-    if (err) throw err
-  })
+  .build()
 ```
 
 ### Can't you just work with the zip file?
@@ -75,9 +73,7 @@ require('metalsmith')(__dirname)
   .use(require('metalsmith-dayone')({
     data: './path/to/dayone.zip'
   }))
-  .build((err) => {
-    if (err) throw err
-  })
+  .build()
 ```
 
 ### Filtering Day One data
@@ -87,22 +83,17 @@ require('metalsmith')(__dirname)
 Let's say you have a journal called `Exercise` with a ton of entries but you only want to build a site with entries tagged `run` or `bike`. Here's how you'd do that:
 
 ```js
-const Metalsmith = require('metalsmith')
-const dayone = require('metalsmith-dayone')
-
-Metalsmith(__dirname)
+require('metalsmith')(__dirname)
   .source('./path/to/dayone/data')
   .destination('./build')
   .clean(true)
-  .use(dayone({
+  .use(require('metalsmith-dayone')({
     // Either option can be strings or arrays of strings
     // They will also do a case insensitive match
     journals: 'exercise',
     tags: ['run', 'bike']
   }))
-  .build((err) => {
-    if (err) throw err
-  })
+  .build()
 ```
 
 

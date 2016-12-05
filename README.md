@@ -20,6 +20,9 @@ After you have the `.zip` file, here are the steps to make sure `metalsmith` can
 2. If it extracts to a directory, you're all good to go
 3. If it just extracted to a `.json` file, put that file inside a directory
 
+## Example
+
+See the [`example/` directory](./example) for an example with paginated entries and tags pages.
 
 ## Usage
 
@@ -45,7 +48,7 @@ Metalsmith(__dirname)
 
 ### Adding Day One data to an existing site
 
-If you already have a `metalsmith` site or want to use Day One data in conjunction with other stuff, you probably don't want to change the `source` path. In this case, you can provide a `path` option to `metalsmith-dayone` for where to look for your data.
+If you already have a `metalsmith` site or want to use Day One data in conjunction with other stuff, you probably don't want to change the `source` path. In this case, you can provide a `data` option to `metalsmith-dayone` for where to look for your data.
 
 ```js
 const Metalsmith = require('metalsmith')
@@ -54,7 +57,7 @@ const dayone = require('metalsmith-dayone')
 Metalsmith(__dirname)
   .source('./you/already/got/src')
   .destination('./build')
-  .use(dayone({ path: './path/to/dayone/data' }))
+  .use(dayone({ data: './path/to/dayone/data' }))
   .build((err) => {
     if (err) throw err
   })
@@ -75,7 +78,7 @@ mkdirp.sync(__dirname + '/empty')
 Metalsmith(__dirname)
   .source('./empty')
   .destination('./build')
-  .use(dayone({ path: './path/to/dayone.zip' }))
+  .use(dayone({ data: './path/to/dayone.zip' }))
   .build((err) => {
     if (err) throw err
   })
@@ -107,39 +110,33 @@ Metalsmith(__dirname)
 ```
 
 
-## What does the data looks like?
+## What does this plugin do?
 
 Day One captures a lot of data. From `weather.windSpeedKPH` to `userActivity.stepCount`, well there's a bunch. For this reason, this plugin doesn't do much data parsing except the following:
 
-1. Converts `text` to HTML from markdown and puts it where `metalsmith` expects
-2. Rewrites any internal Day One links to images to point where they are in the `destination` directory
-3. Places all other data in an objcect `dayone`
+1. Transforms the `text` to a buffer (and optionally parses it to `html`) and puts it on `contents`
+2. Rewrites any internal Day One links and images to point where they will be in the `destination` directory
+3. Places all other Day One data as if it were read from `frontmatter`
 
-The `dayone` object is where you should look if you want to customize posts to include stuff like step counts and wind speed.
-
-Here's an example of some data after `metalsmith-dayone` is done with it:
+Here's an example of some data after `metalsmith-dayone` is done with it (with a `path` of `entries/:id`):
 
 ```json
 {
-  BC5CE1B78AFC4003A1BB0CF5593013C5: {
+  "entries/BC5CE1B78AFC4003A1BB0CF5593013C5.html": {
     contents: <Buffer>,
-    dayone: {
-      tags: [ ... ],
-      weather: { ... },
-      location: { ... },
-      photos: [ ... ],
-      ...
-    }
+    tags: [ ... ],
+    weather: { ... },
+    location: { ... },
+    photos: [ ... ],
+    ...
   },
   "photos/8f4b665521c4cae876835af23129dcd2.jpeg": {
     contents: <Buffer>
   },
-  E686072CCEE044948295B7C4CF5D1C42: {
+  "entries/E686072CCEE044948295B7C4CF5D1C42.html": {
     contents: <Buffer>,
-    dayone: {
-      tags: [ ... ],
-      ...
-    }
+    tags: [ ... ],
+    ...
   }
 }
 ```
@@ -147,7 +144,7 @@ Here's an example of some data after `metalsmith-dayone` is done with it:
 
 ## Full API
 
-### `path` (optional)
+### `data` (optional)
 
 `String`
 
@@ -155,7 +152,25 @@ Path to your exported Day One data directory or `.zip` file.
 
 If this is not used, it will default to the `metalsmith.source` directory.
 
-### `journals` (optional)
+### `path` (optional, default: `entries/:id.html`)
+
+`String`
+
+The path where each entry will be written. `:id` will be replaced by the Day One entry id.
+
+### `layout` (optional, default `null`)
+
+`String`
+
+Specifiy a layout property to be used with each entry. Used for compatibility with [`metalsmith-layouts`](https://github.com/superwolff/metalsmith-layouts).
+
+### markdown (optional, default `true`)
+
+`Boolean`
+
+Whether to parse the text of each entry from markdown to html. Based on this property the extension of each file will be `.html` or `.md`.
+
+### `journals` (optional, default `null`)
 
 `String | [String, ...]`
 
@@ -163,21 +178,13 @@ Filter which journals get built by doing a case insensitive match on the name of
 
 By default all journals get built.
 
-### `tags` (optional)
+### `tags` (optional, default `null`)
 
 `String | [String, ...]`
 
 Filter which entries get built by doing a case insensitive match on the entries' tags.
 
 By default all entries get built.
-
-### `markdown` (optional)
-
-`Object`
-
-This plugin used [`marked`](https://github.com/chjj/marked#options-1) since Day One stores text as markdown. You can use this to pass options to the `marked` parser.
-
-By default no options are passed.
 
 
 ## Known Issues

@@ -1,0 +1,13 @@
+include mixins/pagination
+include mixins/entry-link
+
+extends base
+
+block content
+  h1 Entries #{tag}
+
+  ul
+    each entry in pagination.files
+      li: +entryLink(entry)
+
+  +pagination(pagination)

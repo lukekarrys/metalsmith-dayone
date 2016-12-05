@@ -20,15 +20,6 @@
   ],
   "devDependencies": {
     "git-validate": "^2.2.2",
-    "http-server": "^0.9.0",
-    "metalsmith": "^2.3.0",
-    "metalsmith-collections": "^0.9.0",
-    "metalsmith-debug": "^1.1.0",
-    "metalsmith-layouts": "^1.7.0",
-    "metalsmith-pagination": "^1.4.0",
-    "metalsmith-permalinks": "^0.5.0",
-    "metalsmith-tags": "^2.0.0",
-    "pug": "^2.0.0-beta6",
     "standard": "^8.6.0"
   },
   "homepage": "https://github.com/lukekarrys/metalsmith-dayone#readme",
@@ -49,9 +40,7 @@
     "url": "git+ssh://git@github.com/lukekarrys/metalsmith-dayone.git"
   },
   "scripts": {
-    "example": "node example/index",
     "lint": "standard",
-    "preview": "http-server ./example/build -p 8080",
     "validate": "npm ls"
   }
 }

@@ -23,7 +23,7 @@ After you have the `.zip` file, here are the steps to make sure `metalsmith` can
 
 ## Example
 
-See the [`example/` directory](./example) for an example with paginated entries and tags pages.
+See the [`metalsmith-dayone-example` repo](https://github.com/lukekarrys/metalsmith-dayone-example) for an example with paginated entries and tags pages.
 
 
 ## Usage

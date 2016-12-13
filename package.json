@@ -35,7 +35,8 @@
   "main": "lib/index.js",
   "pre-commit": [
     "lint",
-    "validate"
+    "validate",
+    "test"
   ],
   "repository": {
     "type": "git",

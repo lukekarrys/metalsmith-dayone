@@ -1,7 +1,7 @@
 {
   "name": "metalsmith-dayone",
   "description": "A Metalsmith plugin to create files from a Day One JSON export.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "Luke Karrys <luke@lukekarrys.com>",
   "bugs": {
     "url": "https://github.com/lukekarrys/metalsmith-dayone/issues"

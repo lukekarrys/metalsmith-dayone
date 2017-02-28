@@ -18,7 +18,7 @@
   "devDependencies": {
     "@tap-format/spec": "^0.2.0",
     "git-validate": "^2.2.2",
-    "standard": "^8.6.0",
+    "standard": "^9.0.0",
     "tape": "^4.6.3"
   },
   "files": [

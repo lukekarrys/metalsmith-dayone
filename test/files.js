@@ -1,7 +1,7 @@
 const test = require('tape')
 const buildFiles = require('../lib/files')
 const file = (contents = '') => ({
-  contents: new Buffer(typeof contents === 'object' ? JSON.stringify(contents) : contents)
+  contents: Buffer.from(typeof contents === 'object' ? JSON.stringify(contents) : contents)
 })
 
 test('Works on some files', (t) => {
@@ -23,7 +23,7 @@ test('Works on some files', (t) => {
     'entries/1.html': {
       uuid: 1,
       text: '# Test',
-      contents: new Buffer('<h1 id="test">Test</h1>\n'),
+      contents: Buffer.from('<h1 id="test">Test</h1>\n'),
       layout: null,
       journal: 'journal',
       date: '2016-03-21T00:00:00.000Z',

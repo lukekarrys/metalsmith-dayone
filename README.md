@@ -6,6 +6,7 @@ A Metalsmith plugin to create files from a Day One JSON export.
 [![NPM](https://nodei.co/npm/metalsmith-dayone.png)](https://nodei.co/npm/metalsmith-dayone/)
 [![Build Status](https://travis-ci.org/lukekarrys/metalsmith-dayone.png?branch=master)](https://travis-ci.org/lukekarrys/metalsmith-dayone)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
+[![Greenkeeper badge](https://badges.greenkeeper.io/lukekarrys/metalsmith-dayone.svg)](https://greenkeeper.io/)
 
 **This plugin only works with Day One v2.**
 

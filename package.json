@@ -7,7 +7,7 @@
     "url": "https://github.com/lukekarrys/metalsmith-dayone/issues"
   },
   "dependencies": {
-    "debug": "^2.3.3",
+    "debug": "^3.0.0",
     "html-to-text": "^3.0.0",
     "is-absolute": "^1.0.0",
     "lodash": "^4.17.2",
